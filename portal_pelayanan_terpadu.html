@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal Pelayanan Terpadu - Template Static</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center">
+      <div class="brand">
+        <img src="Logo Kemenag.png" alt="logo">
+        <div>
+          <h1>Kementerian Agama Kabupaten Minahasa</h1>
+          <p>Sistem Informasi Melayani Umat Responsif, Nyaman, dan Integratif </p>
+        </div>
+      </div>
+      <div style="font-size:14px; opacity:0.95">Kontak: <strong>024-xxxxxxx</strong></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <h2 class="title">SiMURNI</h2>
+        <p class="subtitle">Sistem Informasi Melayani Umat Responsif, Nyaman, dan Integratif</p>
+
+        <div class="search-wrap">
+          <div class="search" role="search">
+            <input id="searchInput" type="search" placeholder="Cari Layanan..." aria-label="Cari layanan">
+            <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services">
+      <div class="grid" id="servicesGrid">
+        <div class="service-card" data-name="Pendidikan Islam">
+          <i class="fa-solid fa-book-quran icon"></i>
+          <div class="label">PENDIDIKAN ISLAM</div>
+        </div>
+
+        <div class="service-card" data-name="Haji & Umrah">
+          <i class="fa-solid fa-kaaba icon"></i>
+          <div class="label">HAJI & UMRAH</div>
+        </div>
+
+        <div class="service-card" data-name="Bimas Islam" data-link="https://forms.gle/q7Rn7HjxXJEh15Nv5">
+          <i class="fa-solid fa-mosque icon"></i>
+          <div class="label">BMAS ISLAM</div>
+        </div>
+
+        <div class="service-card" data-name="Layanan Kristen">
+          <i class="fa-solid fa-church icon"></i>
+          <div class="label">LAYANAN KRISTEN</div>
+        </div>
+
+        <div class="service-card" data-name="Layanan Katolik">
+          <i class="fa-solid fa-church icon"></i>
+          <div class="label">LAYANAN KATOLIK</div>
+        </div>
+
+        <div class="service-card" data-name="Zakat & Wakaf">
+          <i class="fa-solid fa-hand-holding-dollar icon"></i>
+          <div class="label">ZAKAT & WAKAF</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">&copy; 2025 Portal Pelayanan Terpadu </div>
+  </footer>
+
+  <script>
+    const input = document.getElementById('searchInput');
+    const grid = document.getElementById('servicesGrid');
+    const cards = Array.from(grid.querySelectorAll('.service-card'));
+
+    function filterServices(){
+      const q = input.value.trim().toLowerCase();
+      if(!q){
+        cards.forEach(c=> c.style.display='flex');
+        return;
+      }
+      cards.forEach(c=>{
+        const name = c.dataset.name.toLowerCase();
+        if(name.includes(q)) c.style.display='flex'; else c.style.display='none';
+      })
+    }
+
+    input.addEventListener('input', filterServices);
+    document.getElementById('searchBtn').addEventListener('click', function(){ filterServices(); input.focus(); });
+
+    cards.forEach(c=>{
+      c.addEventListener('click', ()=>{
+        const link = c.dataset.link;
+        if(link){
+          window.open(link, '_blank');
+        } else {
+          alert('Buka layanan: '+c.dataset.name+' (ganti alert ini dengan navigasi/link)');
+        }
+      })
+    })
+  </script>
+</body>
+</html>
