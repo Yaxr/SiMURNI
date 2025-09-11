@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="id">
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Layanan Sekjen</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+      :root {
+         --green: #1f7a3a;
+         --green-light: #4caf50;
+         --white: #ffffff;
+         --max-width: 1200px;
+      }
+
+      body {
+         font-family: 'Montserrat', Arial, sans-serif;
+         margin: 0;
+         padding: 0;
+         background: #f9f9f9;
+         color: #222;
+      }
+
+      /* HEADER (sama dengan portal_pelayanan_terpadu.html) */
+      .header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 10px 20px;
+         background: linear-gradient(90deg, #2e7d32, #43a047);
+         color: white;
+         flex-wrap: wrap;
+      }
+      .header-left,
+      .header-center,
+      .header-right {
+         flex: 1;
+         text-align: center;
+      }
+      .header-left {
+         display: flex;
+         align-items: center;
+         gap: 12px;
+         text-align: left;
+      }
+      .header-left img {
+         height: 55px;
+         width: auto;
+      }
+      .header-left h1 {
+         font-size: 14px;
+         font-weight: bold;
+         margin: 0;
+         color: white;
+      }
+      .header-center h2 {
+         margin: 0;
+         font-size: 22px;
+         font-weight: bold;
+         color: white;
+      }
+      .header-center p {
+         margin: 2px 0 0;
+         font-size: 14px;
+         color: white;
+         white-space: nowrap;   /* cegah teks pecah ke bawah */
+         overflow: hidden;
+         text-overflow: ellipsis; /* kasih titik-tiga kalau kepanjangan */
+      }
+      .header-right {
+         display: flex;
+         justify-content: flex-end;
+         align-items: center;
+         gap: 18px;
+         text-align: right;
+      }
+      .header-right img {
+         height: 45px;
+         width: auto;
+         border-radius: 6px;
+      }
+      .header-right img[alt="Logo Pusaka"] {
+         height: 60px !important;
+         width: auto;
+         align-self: center;
+      }
+
+      /* MAIN CONTENT */
+      main {
+         position: relative;
+         padding: 80px 20px 60px;
+         text-align: center;
+         background: url("Kantor Kemenag.jpg") center/cover no-repeat;
+         color: white;
+      }
+      main::before {
+         content: "";
+         position: absolute;
+         inset: 0;
+         background: rgba(0,0,0,0.55);
+         z-index: 0;
+      }
+      main h1, main p, .submenu-grid, .back-link { position: relative; z-index: 1; }
+      main h1 {
+         margin-bottom: 12px;
+         font-size: 36px;
+         font-weight: 700;
+         text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      }
+      main p { margin-bottom: 30px; font-size: 16px; opacity: 0.95; }
+
+      /* GRID MENU */
+      .submenu-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+         gap: 24px;
+         max-width: 900px;
+         margin: 0 auto 30px;
+      }
+      .submenu-item {
+         padding: 24px;
+         background: linear-gradient(90deg, var(--green), var(--green-light));
+         color: white;
+         border-radius: 16px;
+         cursor: pointer;
+         transition: 0.3s ease;
+         font-size: 15px;
+         font-weight: 600;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+      }
+      .submenu-item i { font-size: 32px; margin-bottom: 12px; }
+      .submenu-item:hover {
+         background: var(--green-light);
+         transform: translateY(-6px) scale(1.05);
+         box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      }
+
+      /* BACK LINK */
+      .back-link {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         background: var(--white);
+         padding: 10px 18px;
+         border-radius: 30px;
+         font-size: 14px;
+         text-decoration: none;
+         color: var(--green);
+         font-weight: 600;
+         box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+         transition: all 0.2s;
+      }
+      .back-link:hover { background: var(--green-light); color: #fff; }
+
+      /* HUBUNGI HUMAS */
+      .contact-bar {
+         text-align: center;
+         padding: 40px 16px;
+         background: #f9f9f9;
+      }
+      .contact-inner { max-width: 500px; margin: auto; }
+      .contact-bar .contact-info {
+         font-size: 14px;
+         margin-bottom: 16px;
+         line-height: 1.5;
+         color: #333;
+      }
+      .contact-bar a {
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+         padding: 12px 22px;
+         background: #25D366;
+         border-radius: 30px;
+         color: white;
+         font-size: 15px;
+         font-weight: 700;
+         text-decoration: none;
+         box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+         transition: all 0.3s ease;
+      }
+      .contact-bar a:hover { background: #20b558; transform: translateY(-2px); }
+    /* FOOTER */
+    .footer {
+      padding: 20px 0;
+      background: #f9f9f9;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s ease;
+    }
+
+    .social-links a i {
+      font-size: 24px; /* ukuran logo diperbesar lagi */
+    }
+
+    .social-links a:hover {
+      transform: translateY(-2px);
+    }
+
+
+    .social-links .youtube i { color: #FF0000; }
+    .social-links .facebook i { color: #1877F2; }
+    .social-links .instagram i { 
+      background: radial-gradient(circle at 30% 30%, #fdf497 0%, #fd5949 40%, #d6249f 70%, #285AEB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .social-links .website {
+      color: #333; /* teks tetap hitam */
+    }
+    .social-links .website i {
+      color: #007BFF; /* ikon biru */
+    }
+    .social-links .website:hover i {
+      color: #0056b3; /* ikon biru lebih gelap saat hover */
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+       .header {
+          flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            padding: 16px;
+         }
+         .header-left {
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+         }
+         .header-left img { height: 50px; width: 50px; }
+         .header-left h1 { font-size: 12px; text-align: center; line-height: 1.3; }
+         .header-center h2 { font-size: 22px; }
+         .header-center p { font-size: 12px; line-height: 1.4; }
+         .header-right { flex-wrap: wrap; justify-content: center; gap: 10px; }
+         .header-right img { height: 32px; }
+         main h1 { font-size: 28px; }
+      }
+      @media (max-width: 480px) {
+         .submenu-grid { grid-template-columns: 1fr; }
+         .back-link { margin: 0 auto; display: inline-flex; }
+      }
+   </style>
+</head>
+<body>
+
+   <!-- HEADER -->
+   <header class="header">
+      <div class="header-left">
+         <img src="Logo Kemenag.png" alt="logo kemenag">
+         <h1>
+            Kementerian Agama <br>
+            <span>Kabupaten Minahasa</span>
+         </h1>
+      </div>
+      <div class="header-center">
+         <h2>SIMURNI</h2>
+         <p>Sistem Informasi Melayani Masyarakat, Mudah, Responsif, dan Integratif</p>
+      </div>
+      <div class="header-right">
+         <img src="LOGO_HUMAS_2.png" alt="Logo Humas">
+         <img src="LOGO_BERAKHLAK.png" alt="Logo BerAKHLAK">
+         <img src="LOGO_PUSAKA_4.png" alt="Logo Pusaka">
+      </div>
+   </header>
+
+   <!-- CONTENT -->
+   <main>
+      <h1>Layanan Sekretariat Jenderal</h1>
+      <p>Silakan pilih layanan sesuai kebutuhan Anda:</p>
+
+      <div class="submenu-grid">
+         <div class="submenu-item" onclick="window.open('https://forms.gle/SMohrVmpgJYS6SHPA')">
+            <i class="fa-solid fa-envelope"></i>
+            Surat Masuk
+         </div>
+      </div>
+
+      <a href="portal_pelayanan_terpadu.html" class="back-link">
+         <i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda
+      </a>
+   </main>
+
+   <!-- HUBUNGI HUMAS -->
+   <section class="contact-bar">
+      <div class="contact-inner">
+         <p class="contact-info">
+            Bantuan atau informasi lebih lanjut, silakan klik tombol di bawah ini
+         </p>
+         <a href="https://wa.me/6282197243432?text=Halo%20HUMAS%2C%20saya%20ingin%20bertanya%20tentang%20layanan." target="_blank">
+            <i class="fab fa-whatsapp"></i> Hubungi HUMAS
+         </a>
+      </div>
+   </section>
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/@kemenagminahasa" target="_blank" class="youtube">
+        <i class="fab fa-youtube"></i> Kemenag Minahasa
+      </a>
+      <a href="https://www.facebook.com/kemenagminahasa" target="_blank" class="facebook">
+        <i class="fab fa-facebook"></i> Kemenag Minahasa
+      </a>
+      <a href="https://www.instagram.com/kemenagkabminahasa" target="_blank" class="instagram">
+        <i class="fab fa-instagram"></i> kemenagkabminahasa
+      </a>
+      <a href="https://minahasa.kemenag.go.id/" target="_blank" class="website">
+         <i class="fas fa-globe"></i> Kementerian Agama Kabupaten Minahasa
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

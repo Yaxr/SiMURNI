@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portal Pelayanan Terpadu - SiMURNI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --green: #1f7a3a;
+      --green-light: #4caf50;
+      --white: #ffffff;
+      --max-width: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Montserrat', system-ui, Arial;
+      margin: 0;
+      color: #222;
+      background-color: var(--white);
+    }
+
+    /* HEADER / TOPBAR */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #2e7d32, #43a047); /* hijau soft tapi agak gelap */
+      color: white;
+      flex-wrap: wrap;
+    }
+
+    .header-left,
+    .header-center,
+    .header-right {
+      flex: 1;
+      text-align: center;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .header-left img {
+      height: 55px;
+      width: auto;
+    }
+
+    .header-left h1 {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0;
+      color: white;
+    }
+
+    .header-center h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .header-center p {
+      margin: 2px 0 0;
+      font-size: 14px;
+      color: white;
+      white-space: nowrap;   /* cegah teks pecah ke bawah */
+      overflow: hidden;
+      text-overflow: ellipsis; /* kasih titik-tiga kalau kepanjangan */
+    }
+
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 18px;
+      text-align: right;
+    }
+
+    .header-right img {
+      height: 45px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .header-right img[alt="Logo Pusaka"] {
+      height: 60px !important; /* lebih besar */
+      width: auto;
+      margin-top: 0;
+      align-self: center; /* sejajar tengah */
+    }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url('Gambar Kantor Kemenag_4.jpg') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+      position: relative;
+      padding: 60px 0;
+      min-height: 80vh;
+      width: 100%;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 44px;
+      letter-spacing: 1px;
+      color: var(--white);
+      font-weight: 700;
+      margin: 0 0 8px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .subtitle {
+      margin: 0 0 28px;
+      color: #fff;
+      opacity: 0.95;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .search-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 34px;
+    }
+
+    .search {
+      width: 90%;
+      max-width: 760px;
+      display: flex;
+      background: var(--white);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .search input {
+      flex: 1;
+      border: 0;
+      padding: 18px 22px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search button {
+      background: var(--green);
+      color: white;
+      border: 0;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* SERVICES */
+    .services {
+      padding: 40px 0 60px;
+      background: transparent;
+    }
+
+    .grid {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 28px;
+      padding: 0 16px;
+    }
+
+    .service-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+      color: white;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      background: var(--green-light);
+    }
+
+    .service-card .icon {
+      font-size: 36px;
+    }
+
+    .label {
+      font-weight: 700;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* CONTACT HUMAS */
+    .contact-bar {
+      text-align: center;
+      padding: 40px 16px;
+      background: #f9f9f9;
+    }
+
+    .contact-bar .contact-info {
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .contact-bar a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      background: #25D366;
+      border-radius: 30px;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .contact-bar a:hover {
+      background: #20b558;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 20px 0;
+      background: #f9f9f9;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .social-links a {
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s ease;
+    }
+
+    .social-links a i {
+      font-size: 24px; /* ukuran logo diperbesar lagi */
+    }
+
+    .social-links a:hover {
+      transform: translateY(-2px);
+    }
+
+
+    .social-links .youtube i { color: #FF0000; }
+    .social-links .facebook i { color: #1877F2; }
+    .social-links .instagram i { 
+      background: radial-gradient(circle at 30% 30%, #fdf497 0%, #fd5949 40%, #d6249f 70%, #285AEB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .social-links .website {
+      color: #333; /* teks tetap hitam */
+    }
+    .social-links .website i {
+      color: #007BFF; /* ikon biru */
+    }
+    .social-links .website:hover i {
+      color: #0056b3; /* ikon biru lebih gelap saat hover */
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        padding: 16px;
+      }
+
+      .header-left {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .header-left img {
+        height: 50px;
+        width: 50px;
+      }
+
+      .header-left h1 {
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.3;
+      }
+
+      .header-center h2 {
+        font-size: 22px;
+      }
+
+      .header-center p {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .header-right {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .header-right img {
+        height: 32px;
+      }
+
+      .title {
+        font-size: 26px;
+      }
+
+      .label {
+        font-size: 12px;
+      }
+
+      .hero {
+        min-height: 100vh;
+        background-position: center top;
+        background-attachment: scroll;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <img src="Logo Kemenag.png" alt="logo kemenag">
+        <h1>
+          Kementerian Agama <br>
+          <span>Kabupaten Minahasa</span>
+        </h1>
+      <!-- <h1>Kementerian Agama 
+      <h1>Kabupaten Minahasa</h1> -->
+    </div>
+
+    <div class="header-center">
+      <h2>SIMURNI</h2>
+      <p>Sistem Informasi Melayani Masyarakat, Mudah, Responsif, dan Integratif</p>
+    </div>
+
+    <div class="header-right">
+      <img src="LOGO_HUMAS_2.png" alt="Logo Humas">
+      <img src="LOGO_BERAKHLAK.png" alt="Logo BerAKHLAK">
+      <img src="LOGO_PUSAKA_4.png" alt="Logo Pusaka">
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="search-wrap">
+          <div class="search" role="search">
+            <input id="searchInput" type="search" placeholder="Cari Layanan..." aria-label="Cari layanan">
+            <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Cari</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services">
+      <div class="grid" id="servicesGrid">
+        <div class="service-card" data-link="sekjen.html">
+          <i class="fa-solid fa-user-tie icon"></i>
+          <div class="label">SEKJEN</div>
+        </div>
+        <div class="service-card" data-link="pendidikan-islam.html">
+          <i class="fa-solid fa-book icon"></i>
+          <div class="label">PENDIDIKAN ISLAM</div>
+        </div>
+        <div class="service-card" data-name="Haji & Umrah">
+          <i class="fa-solid fa-kaaba icon"></i>
+          <div class="label">HAJI & UMRAH</div>
+        </div>
+        <div class="service-card" data-link="bimas-islam.html">
+          <i class="fa-solid fa-mosque icon"></i>
+          <div class="label">BIMAS ISLAM</div>
+        </div>
+        <div class="service-card" data-link="https://near.tl/sm/tE_M6tZny">
+          <i class="fa-solid fa-cross icon"></i>
+          <div class="label">LAYANAN KRISTEN</div>
+        </div>
+        <div class="service-card" data-link="https://simpatika.kemenag.go.id/">
+          <i class="fa-solid fa-book-bible icon"></i>
+          <div class="label">PENDIDIKAN KRISTEN</div>
+        </div>
+        <div class="service-card" data-link="katolik.html">
+          <i class="fa-solid fa-church icon"></i>
+          <div class="label">LAYANAN KATOLIK</div>
+        </div>
+        <div class="service-card" data-link="https://siwak.kemenag.go.id/">
+          <i class="fa-solid fa-hand-holding-dollar icon"></i>
+          <div class="label">ZAKAT & WAKAF</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK HUMAS -->
+    <section class="contact-bar">
+      <p class="contact-info">
+        Bantuan atau informasi lebih lanjut, silakan klik tombol di bawah ini
+      </p>
+      <a href="https://wa.me/6282197243432?text=Halo%20HUMAS%2C%20saya%20ingin%20bertanya%20tentang%20layanan." target="_blank">
+        <i class="fab fa-whatsapp"></i> Hubungi HUMAS
+      </a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.youtube.com/@kemenagminahasa" target="_blank" class="youtube">
+        <i class="fab fa-youtube"></i> Kemenag Minahasa
+      </a>
+      <a href="https://www.facebook.com/kemenagminahasa" target="_blank" class="facebook">
+        <i class="fab fa-facebook"></i> Kemenag Minahasa
+      </a>
+      <a href="https://www.instagram.com/kemenagkabminahasa" target="_blank" class="instagram">
+        <i class="fab fa-instagram"></i> kemenagkabminahasa
+      </a>
+      <a href="https://minahasa.kemenag.go.id/" target="_blank" class="website">
+        <i class="fas fa-globe"></i> Kementerian Agama Kabupaten Minahasa
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const input = document.getElementById('searchInput');
+    const grid = document.getElementById('servicesGrid');
+    const cards = Array.from(grid.querySelectorAll('.service-card'));
+
+    function filterServices(){
+      const q = input.value.trim().toLowerCase();
+      if(!q){
+        cards.forEach(c=> c.style.display='flex');
+        return;
+      }
+      cards.forEach(c=>{
+        const name = (c.dataset.name || c.querySelector('.label').textContent).toLowerCase();
+        if(name.includes(q)) c.style.display='flex'; else c.style.display='none';
+      })
+    }
+
+    input.addEventListener('input', filterServices);
+    document.getElementById('searchBtn').addEventListener('click', function(){ filterServices(); input.focus(); });
+
+    // Klik service-card
+    cards.forEach(c=>{
+      const link = c.dataset.link;
+      if(link){
+        c.addEventListener('click', ()=> window.location.href = link);
+      }
+    });
+  </script>
+</body>
+</html>

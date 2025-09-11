@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Guru Agama</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f9f9f9; margin:0; padding:0;}
+    
+    header {
+      background: linear-gradient(90deg, #1f7a3a, #4caf50);
+      color: #fff;
+      padding: 15px 20px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    header h1 { margin: 0; font-size: 22px; font-weight: bold; }
+
+    main { padding: 20px; }
+
+    .filter-box {
+      background: #e8f5e9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .filter-box select, .filter-box input {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      min-width: 180px;
+    }
+
+    table.dataTable { width: 100%; font-size: 14px; }
+
+    /* Tombol Export lebih estetik */
+    .dt-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .dt-button {
+      background: linear-gradient(90deg, #1f7a3a, #4caf50) !important;
+      border: none !important;
+      color: #fff !important;
+      padding: 10px 18px !important;
+      border-radius: 30px !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dt-button:hover {
+      background: #20b558 !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    }
+
+    /* Grafik */
+    .chart-container {
+      margin: 30px auto;
+      max-width: 500px; /* kecilkan ukuran */
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* Section Hubungi HUMAS */
+    .contact-bar {
+      text-align: center;
+      padding: 40px 16px;
+      background: #f9f9f9;
+    }
+    .contact-inner {
+      max-width: 500px;
+      margin: auto;
+    }
+    .contact-bar .contact-info {
+      font-size: 14px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      color: #333;
+    }
+    .contact-bar a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      background: #25D366;
+      border-radius: 30px;
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .contact-bar a:hover {
+      background: #20b558;
+      transform: translateY(-2px);
+    }
+    .back-home {
+  text-align: center;
+  margin: 25px 0;
+}
+
+    .back-home a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(90deg, #1f7a3a, #4caf50);
+    border-radius: 30px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    }
+
+    .back-home a:hover {
+    background: #20b558;
+    transform: translateY(-2px);
+    }
+
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .filter-box {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-box select, .filter-box input {
+        width: 100%;
+      }
+      .dt-buttons {
+        flex-direction: column;
+      }
+      .dt-button {
+        width: 100% !important;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Data Guru Agama</h1>
+</header>
+
+<main>
+  <div class="filter-box">
+    <input type="text" id="namaGuru" placeholder="Cari Nama Guru Agama">
+    <select id="kecamatan"><option value="">Semua Kecamatan</option></select>
+    <select id="statusGuru"><option value="">Semua Status Guru</option></select>
+    <select id="sertifikasi"><option value="">Semua Sertifikasi</option></select>
+    <select id="statusNonPns"><option value="">Semua Status Non PNS</option></select>
+    <select id="jenjang"><option value="">Semua Jenjang</option></select>
+  </div>
+
+  <table id="guruTable" class="display nowrap">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Status</th>
+        <th>Sertifikasi</th>
+        <th>NIP</th>
+        <th>Inpassing</th>
+        <th>Jenjang</th>
+        <th>Kecamatan</th>
+        <th>Sekolah</th>
+        <th>Alamat</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- Grafik di bawah tabel -->
+  <div class="chart-container">
+    <canvas id="guruChart"></canvas>
+  </div>
+</main>
+
+<div class="back-home">
+  <a href="pendidikan-islam.html">
+    <i class="fas fa-home"></i> Kembali ke Pendidikan Islam
+  </a>
+</div>
+<!-- HUBUNGI HUMAS -->
+<section class="contact-bar">
+  <div class="contact-inner">
+    <p class="contact-info">
+      Jika Anda mengalami kebingungan atau butuh bantuan lebih lanjut,<br>
+      silakan hubungi <b>HUMAS</b> melalui tombol di bawah ini:
+    </p>
+    <a href="https://wa.me/6282197243432?text=Halo%20HUMAS%2C%20saya%20ingin%20bertanya%20tentang%20Data%20Guru%20Agama" target="_blank">
+      <i class="fab fa-whatsapp"></i> Hubungi HUMAS
+    </a>
+  </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+async function loadExcel() {
+  const response = await fetch("Data Guru.xlsx"); 
+  const data = await response.arrayBuffer();
+  const workbook = XLSX.read(data, {type: "array"});
+  const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  const jsonData = XLSX.utils.sheet_to_json(sheet);
+
+  let tbody = document.querySelector("#guruTable tbody");
+
+  // isi tabel
+  jsonData.forEach(row => {
+    let tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${row.NAMA || ""}</td>
+      <td>${row.STATUS || ""}</td>
+      <td>${row.SERTIFIKASI || ""}</td>
+      <td>${row.NIP || ""}</td>
+      <td>${row.JABATAN || ""}</td>
+      <td>${row.JENJANG || ""}</td>
+      <td>${row.KECAMATAN || ""}</td>
+      <td>${row.SEKOLAH || ""}</td>
+      <td>${row.ALAMAT || ""}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // aktifkan DataTable
+  let table = $('#guruTable').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+      { extend: 'excelHtml5', text: '<i class="fas fa-file-excel"></i> Excel', className: 'export-btn' },
+      { extend: 'csvHtml5', text: '<i class="fas fa-file-csv"></i> CSV', className: 'export-btn' },
+      { extend: 'pdfHtml5', text: '<i class="fas fa-file-pdf"></i> PDF', className: 'export-btn', orientation: 'landscape', pageSize: 'A4' },
+      { extend: 'print', text: '<i class="fas fa-print"></i> Print', className: 'export-btn' }
+    ],
+    responsive: true,
+    scrollX: true
+  });
+
+  // isi dropdown filter unik dari data excel
+  function fillDropdown(id, field) {
+    let values = [...new Set(jsonData.map(r => r[field]).filter(v => v))];
+    values.sort();
+    values.forEach(v => {
+      document.getElementById(id).innerHTML += `<option value="${v}">${v}</option>`;
+    });
+  }
+  fillDropdown("kecamatan", "KECAMATAN");
+  fillDropdown("statusGuru", "STATUS");
+  fillDropdown("sertifikasi", "SERTIFIKASI");
+  fillDropdown("statusNonPns", "STATUS"); 
+  fillDropdown("jenjang", "JENJANG");
+
+  // event filter
+  $('#namaGuru').on('keyup', function() { table.search(this.value).draw(); });
+  $('#kecamatan').on('change', function() { table.column(6).search(this.value).draw(); });
+  $('#statusGuru').on('change', function() { table.column(1).search(this.value).draw(); });
+  $('#sertifikasi').on('change', function() { table.column(2).search(this.value).draw(); });
+  $('#statusNonPns').on('change', function() { table.column(1).search(this.value).draw(); });
+  $('#jenjang').on('change', function() { table.column(5).search(this.value).draw(); });
+
+  // ====== Buat Grafik Jumlah Guru per Kecamatan ======
+  let countPerKec = {};
+  jsonData.forEach(r => {
+    if (r.KECAMATAN) {
+      countPerKec[r.KECAMATAN] = (countPerKec[r.KECAMATAN] || 0) + 1;
+    }
+  });
+
+  let ctx = document.getElementById("guruChart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: Object.keys(countPerKec),
+      datasets: [{
+        label: "Jumlah Guru",
+        data: Object.values(countPerKec),
+        backgroundColor: "#4caf50"
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+}
+
+
+
+loadExcel();
+</script>
+
+</body>
+</html>
